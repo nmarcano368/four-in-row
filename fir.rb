@@ -1,8 +1,9 @@
 =begin problemas no solucionados:
 1- Al llenarse una columna y volver a seleccionarla no le impide al jugador poner su ficha
 generando un error. Sin embargo, el tablero se puede llenar y si esto ocurre da un mensaje de empate.
-2- No realiza ningun chequeo de ganador, por lo que los jugadores juegan hasta llenar el tablero.
+2- No realiza el chequeo de ganador diagonal, ninguno.
 =end
+
 
 require "colorize"
 
@@ -39,10 +40,7 @@ end
 def play_game( game_board, token )
 	valid1 = false
 	valid2 = false
-	valid3 = false
 	j = 5
-
-
 	while (!valid1)
 		puts "Indique posicion:".yellow
 		print "columna: ".yellow
@@ -66,12 +64,40 @@ def play_game( game_board, token )
 end
 
 #chequeo de ganador: Horizontal
-def check_h_win( game_board, token )
-
+def check_h_win( game_board, token)
+	for j in 0..game_board.length-1
+		cont = 0
+    	for i in 0..game_board.length-1
+        	if( game_board[j][i] == token )
+            	cont = cont + 1
+        	else
+            	cont = 0
+        	end
+        	if (cont == 4)
+            	return true
+        	end
+    	end
+	end
+return false
 end
 
 #chequeo de ganador: Vertical
-def check_v_win( game_board, token )
+def check_v_win(game_board,token)
+	for j in 0..game_board.length-1
+		cont = 0
+    	for i in 0..game_board.length-1
+        	if( game_board[i][j] == token )
+            	cont = cont + 1
+        	else
+            	cont = 0
+        	end
+
+        	if (cont == 4)
+            	return true
+       		end
+    	end
+	end
+return false
 end
 
 #chequeo de ganador: Diagonal up
@@ -92,7 +118,7 @@ def init_game( game_board, p1, p2 )
 		game_board = play_game( game_board, player )
 		cont = cont + 1
 		paint_game_board( game_board )
-		if false
+		if check_h_win( game_board, player) || check_v_win( game_board, player) || check_d_up_win( game_board, player) || check_d_down_win( game_board, player)
 			puts "Gano el jugador #{player}!".green
 			cont = game_board.length**2+1
 		end
