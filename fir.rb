@@ -20,7 +20,8 @@ end
 
 #pinta tablero de juego.
 def paint_game_board(game_board)
-	puts ""
+	puts " "
+	puts "1 2 3 4 5 6"
 	for i in 0..game_board.length-1
 		if ( i != 0 )
 			puts "-----------".magenta
@@ -54,6 +55,11 @@ def play_game( game_board, token )
 	end
 
 	while(!valid2) 
+		if ( j < 0 )
+		puts "Columnna llena, seleccione otra."
+		gets.chomp
+		valid2 = true
+		end
 		if (game_board[j][position] == " ")
 			game_board[j][position] = token
 			valid2 = true
