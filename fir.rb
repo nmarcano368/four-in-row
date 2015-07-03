@@ -1,7 +1,8 @@
 =begin problemas no solucionados:
-1- Al llenarse una columna y volver a seleccionarla no le impide al jugador poner su ficha
-generando un error. Sin embargo, el tablero se puede llenar y si esto ocurre da un mensaje de empate.
-2- No realiza el chequeo de ganador diagonal, ninguno.
+1- No realiza el chequeo de ganador diagonal, ninguno.
+2- Al seleccionar una columna llena, muestra un mensaje "columna llena"
+pero ese intento de jugada suma 1 al contador de jugadas, ocasionando que en algun momento 
+muestre el mensaje "empate".
 =end
 
 
@@ -119,15 +120,15 @@ end
 def init_game( game_board, p1, p2 )
 	init_game_board( game_board )
 	paint_game_board( game_board )
-	cont = 0
+	cont_de_jugadas = 0
 	player = p1
-	while(cont < game_board.length**2)
+	while(cont_de_jugadas < game_board.length**2)
 		game_board = play_game( game_board, player )
-		cont = cont + 1
+		cont_de_jugadas = cont_de_jugadas + 1
 		paint_game_board( game_board )
 		if check_h_win( game_board, player) || check_v_win( game_board, player) || check_d_up_win( game_board, player) || check_d_down_win( game_board, player)
 			puts "Gano el jugador #{player}!".green
-			cont = game_board.length**2+1
+			cont_de_jugadas = game_board.length**2+1
 		end
 
 		if ( player == p2)
@@ -136,7 +137,7 @@ def init_game( game_board, p1, p2 )
 			player = p2 
 		end
 	end
-	if (cont == game_board.length**2)
+	if (cont_de_jugadas == game_board.length**2)
 		puts "E".green + "m".red + "p".yellow + "a".blue + "t".black + "e".white
 	end
 end
