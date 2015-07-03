@@ -10,11 +10,11 @@ require "colorize"
 #crea tablero de juego.
 def init_game_board(game_board)
 	for i in 0..5
-		b = []
+		m = []
 		for j in 0..5
-			b[j] = " "
+			m[j] = " "
 		end
-		game_board[i] = b
+		game_board[i] = m
 	end
 end
 
@@ -41,6 +41,7 @@ def play_game( game_board, token )
 	valid1 = false
 	valid2 = false
 	j = 5
+
 	while (!valid1)
 		puts "Indique posicion:".yellow
 		print "columna: ".yellow
@@ -65,10 +66,10 @@ end
 
 #chequeo de ganador: Horizontal
 def check_h_win( game_board, token)
-	for j in 0..game_board.length-1
+	for i in 0..game_board.length-1
 		cont = 0
-    	for i in 0..game_board.length-1
-        	if( game_board[j][i] == token )
+    	for j in 0..game_board.length-1
+        	if( game_board[i][j] == token )
             	cont = cont + 1
         	else
             	cont = 0
@@ -83,10 +84,10 @@ end
 
 #chequeo de ganador: Vertical
 def check_v_win(game_board,token)
-	for j in 0..game_board.length-1
+	for i in 0..game_board.length-1
 		cont = 0
-    	for i in 0..game_board.length-1
-        	if( game_board[i][j] == token )
+    	for j in 0..game_board.length-1
+        	if( game_board[j][i] == token )
             	cont = cont + 1
         	else
             	cont = 0
